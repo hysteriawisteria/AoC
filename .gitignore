@@ -10,5 +10,5 @@
 # Undo-tree save-files
 *.~undo-tree
 
-#Test files
-*.test
+#Advent of Code input files
+input*
