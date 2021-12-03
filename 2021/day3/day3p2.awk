@@ -39,7 +39,7 @@ $1 ~ /[01]+/ {
 }
 
 END {
-    oxyRat=filter(oxyArr,1,1) # Pass array zeros as arr1 since it is not the default value
+    oxyRat=filter(oxyArr,1,1) # Pass 1 as default value
     co2Rat=filter(co2Arr,0,1)
     print bin_to_dec(oxyRat)*bin_to_dec(co2Rat)
 }
