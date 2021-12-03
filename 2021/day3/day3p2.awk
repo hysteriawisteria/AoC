@@ -6,7 +6,7 @@ function filter(filtArr,defVal,pos) {
     len=length(filtArr)
     if (len==1) {for (i in filtArr) return i}  # Base case for recursion where 1 value remains
 
-    ones_gt_zeros(filtArr,pos) < 0 ? val=1-defVal : val=defVal # Invert default value of more 1s than 0s, special case for defVal=1
+    ones_gt_zeros(filtArr,pos) < 0 ? val=1-defVal : val=defVal # Invert default value of more 1s than 0s
     
     for (i in filtArr) {
 	if (substr(i,pos,1) != val) delete filtArr[i] # Delete data strings that have the wrong value in this position
