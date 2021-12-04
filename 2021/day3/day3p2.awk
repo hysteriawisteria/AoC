@@ -1,6 +1,5 @@
 # Advent of Code 2021 day 3 part 2 in awk
 ## Author: Chris Menard
-## IMPORTANT: use GNU compliant awk
 
 function filter(filtArr,defVal,pos) {
     if (length(filtArr)==1) {for (i in filtArr) return i}  # Base case for recursion where 1 array entry is left
@@ -16,8 +15,7 @@ function filter(filtArr,defVal,pos) {
 function zeros_gt_ones(inputArr,pos) { # Count the 1s versus 0s in the current position
     ones=0;zeros=0
     for (val in inputArr) {
-	split(val,input,"")
-	input[pos] == 1 ? ones++ : zeros++
+	substr(val,pos,1) == 1 ? ones++ : zeros++
     }
     return zeros>ones
 }
@@ -29,8 +27,6 @@ function bin_to_dec(bin) {
     }
     return total
 }
-
-BEGIN {PROCINFO["sorted_in"]="@ind_num_asc"}
 
 $1 ~ /[01]+/ {
     oxyArr[$1]=""
