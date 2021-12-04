@@ -3,10 +3,9 @@
 ## IMPORTANT: use GNU compliant awk
 
 function filter(filtArr,defVal,pos) {
-    len=length(filtArr)
-    if (len==1) {for (i in filtArr) return i}  # Base case for recursion where 1 value remains
+    if (length(filtArr)==1) {for (i in filtArr) return i}  # Base case for recursion where 1 array entry is left
 
-    ones_gt_zeros(filtArr,pos) < 0 ? val=1-defVal : val=defVal # Invert default value of more 1s than 0s
+    zeros_gt_ones(filtArr,pos) ? val=1-defVal : val=defVal # Invert default value if more 0s than 1s
     
     for (i in filtArr) {
 	if (substr(i,pos,1) != val) delete filtArr[i] # Delete data strings that have the wrong value in this position
@@ -14,13 +13,13 @@ function filter(filtArr,defVal,pos) {
     return filter(filtArr,defVal,pos+1) # Recurse
 }
 
-function ones_gt_zeros(inputArr,pos) { # Count the 1s versus 0s in the current position
+function zeros_gt_ones(inputArr,pos) { # Count the 1s versus 0s in the current position
     ones=0;zeros=0
     for (val in inputArr) {
 	split(val,input,"")
 	input[pos] == 1 ? ones++ : zeros++
     }
-    return ones-zeros
+    return zeros>ones
 }
 
 function bin_to_dec(bin) {
