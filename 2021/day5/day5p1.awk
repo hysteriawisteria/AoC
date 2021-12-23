@@ -7,30 +7,30 @@ BEGIN { FS = "[ ,]" }
     if ($1 == $4) { # Vertical line
 	
 	if ($2 > $5) {
-	    start = $5
-	    end = $2
+	    y1 = $5
+	    y2 = $2
 	}
 	else {
-	    start = $2
-	    end = $5
+	    y1 = $2
+	    y2 = $5
 	}
 	
-	for (i=start; i<=end; i++) {
-	    linecoords[$1,i]++
+	for (y=y1; i<=y2; y++) {
+	    linecoords[$1,y]++
 	}
     }
     if ($2 ==$5) { # Horizontal line
 	if ($1 > $4) {
-	    start = $4
-	    end = $1
+	    x1 = $4
+	    x2 = $1
 	}
 	else {
-	    start = $1
-	    end = $4
+	    x1 = $1
+	    x2 = $4
 	}
 
-	for (i=start; i<=end; i++) {
-	    linecoords[i,$2]++
+	for (x=x1; x<=x2; x++) {
+	    linecoords[x,$2]++
 	}
     }
 }
