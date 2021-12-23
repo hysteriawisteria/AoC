@@ -2,7 +2,6 @@
 ## Author: Chris Menard
 
 $1 ~ /[01]+/ {
-    split($1,input,"");
     for (i=1;i<=length($1);i++) {substr($1,i,1) == 1 ? ones[i]++ : zeros[i]++;}
 }
 
