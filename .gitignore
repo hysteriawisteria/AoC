@@ -17,6 +17,6 @@ input*
 .gawk_history
 .gawkrc
 
-#Emacs backup files
+#Vi backup files
 \#*
 .\#*
