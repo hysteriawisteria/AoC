@@ -16,3 +16,7 @@ input*
 #Gawk debugging files
 .gawk_history
 .gawkrc
+
+#Emacs backup files
+\#*
+.\#*
