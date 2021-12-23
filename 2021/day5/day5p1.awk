@@ -15,7 +15,7 @@ BEGIN { FS = "[ ,]" }
 	    y2 = $5
 	}
 	
-	for (y=y1; i<=y2; y++) {
+	for (y=y1; y<=y2; y++) {
 	    linecoords[$1,y]++
 	}
     }
