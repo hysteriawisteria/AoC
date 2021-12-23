@@ -1,4 +1,4 @@
-# Advent of Code 2021, day 5 part 1
+# Advent of Code 2021, day 5 part 2
 ## Author: Chris Menard
 
 BEGIN { FS = "[ ,]" }
