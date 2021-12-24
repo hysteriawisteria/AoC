@@ -21,12 +21,12 @@ function print_state(fish_arr,day) {
    printf "Day %2s: %6s %6s %6s %6s %6s %6s %6s %6s %6s\n", day, fish_arr[0],fish_arr[1],fish_arr[2],fish_arr[3],fish_arr[4],fish_arr[5],fish_arr[6],fish_arr[7],fish_arr[8]
 }
 
-BEGIN {RS=","}
+BEGIN {RS="[,\n]"}
 
-{fish_arr[+$0]++} # Ensure fields are treated as numbers, not strings
+{fish_arr[$0]++} # Ensure fields are treated as numbers, not strings
 
 END {
-    days=80 # Change to 256 for part 2
+    days=256 # Change to 80 for part 1
     for (day=1; day <=days; day++) {
 	increment_state(fish_arr)
     }
