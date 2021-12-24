@@ -1,4 +1,4 @@
-# Advent of Code 2021, day 8 part 1
+# Advent of Code 2021, day 8 part 2
 ## Author: Chris Menard
 
 function gen_regex(entry) { # Generate a RegEx from entry that will match other strings containing the characters in the entry
