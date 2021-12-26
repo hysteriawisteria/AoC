@@ -1,4 +1,4 @@
-# Advent of Code 2021, day 10 part 2
+# Advent of Code 2021, day 25 part 1
 ## Author: Chris Menard
 
 # Goal: to store the entire board of dimensions width x height as a string
