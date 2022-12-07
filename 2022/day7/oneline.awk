@@ -1,0 +1,1 @@
+/\$ cd [/a-z]/{p=$3"^"p} /^[0-9]/{d=p;s[d]+=$1;while (d!="") {d=substr(d,index(d,"^")+1);s[d]+=$1}} /\.\./ {p=substr(p,index(p,"^")+1)} END {t="/^";m=s[t]-40000000;for (i in s) {if (s[i]<100001) a+=s[i];if (s[i]>=m && s[i] < s[t]) t=i} print a,s[t]}
