@@ -10,9 +10,6 @@
 # Undo-tree save-files
 *.~undo-tree
 
-#Advent of Code input files
-input*
-
 #Gawk debugging files
 .gawk_history
 .gawkrc

@@ -1,4 +1,4 @@
-# Advent of Code 2021, day 17 part 2
+# Advent of Code 2021, day 18 part 1
 ## Author: Chris Menard
 
 # Find the magnitude of a snailfish num
