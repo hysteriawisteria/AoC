@@ -34,13 +34,13 @@ function view(forest,width,height,x,y) {
     }
 
     if (left == 0)
-	left = 1
-    if (right == 6)
-	right =5
+        left = 1
+    if (right > width)
+        right = width
     if (up == -1)
-	up = 0
-    if (down == 5)
-	down = 4
+        up = 0
+    if (down >= height)
+        down = height-1
 
     return (x-left) * (right-x) * (y-up) * (down-y)
 }
