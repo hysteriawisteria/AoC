@@ -47,13 +47,14 @@ function view(forest,width,height,x,y) {
 
 $0 ~ /[0-9]+/ {
     width = length($0)
+    height++
     forest = forest $0
 }
 
 END {
     for (i=1; i<=width; i++) {
-	for (j=0; j<=NR-1; j++) {
-	    distance = view(forest,width,NR,i,j)
+	for (j=0; j<=height-1; j++) {
+	    distance = view(forest,width,height,i,j)
 	    if (distance > ans)
 		ans = distance
 	}
