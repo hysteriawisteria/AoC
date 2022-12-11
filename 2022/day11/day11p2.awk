@@ -26,8 +26,8 @@ function process(m) {
 
 	inspected[m]++
 
-	data[5] == "old" ? oper = items[item] : oper = data[5]
-        data[4] == "+" ? worry = items[item] + oper : worry = items[item] * oper
+	oper = data[5] == "old" ? items[item] : data[5]
+        worry = data[4] == "+" ? items[item] + oper : items[item] * oper
 	worry = worry%factor
 
 	worry%data[3] == 0 ? monkeys[data[2]] = monkeys[data[2]] "^" worry : monkeys[data[1]] = monkeys[data[1]] "^" worry
