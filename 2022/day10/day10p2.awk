@@ -5,15 +5,12 @@ BEGIN {reg=1}
 
 function draw(cycle,reg) {
     col = (cycle - 1) % 40
-    row = ((cycle - 1) - col) / 40
 
-    if (col >= reg-1 && col<= reg+1) {
-	sym = "#"
-    } else {
-	sym = "."
+    ans = sprintf("%s%c",ans,(col >= reg-1 && col<= reg+1) ? "#" : ".")
+
+    if (cycle%40 == 0) {
+	ans = ans "\n"
     }
-
-    ans[row] = ans[row] sym
 }
 
 $0 ~ /noop/ {
@@ -30,7 +27,5 @@ $0 ~ /addx/ {
 }
 
 END {
-    for (i=0; i<6; i++) {
-	print ans[i]
-    }
+    printf "%s\n", ans
 }
