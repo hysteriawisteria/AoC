@@ -1,8 +1,5 @@
-# Advent of Code 2022 day 13 part 1 in awk
+# Advent of Code 2022 day 13 part 2 in awk
 ## Author: Chris Menard
-
-# 'a' keeps track of what pair we're on, 'p' keeps track of whether it's the first or second packet
-BEGIN {a = 1}
 
 # assume first character is [ and last is ] and remove them
 function strip(list) {
@@ -103,14 +100,60 @@ function compare(pack1,pack2,    f1,    f2,    r1,    r2,    val) {
 $0 ~ /[[\]]+/ {
     p++
     arr[p] = $0
-    if (p == 2 && compare(arr[1],arr[2])) {
-	    ans += a
+}
+
+# Do a quick sort on arr[]
+function qsort(low,high,    p) {
+    if (low < high) {
+	p = partition(low,high)
+	qsort(low,p-1)
+	qsort(p+1,high)
     }
 }
 
-$0 ~ /^$/ {
-    p = 0
-    a++
+function partition(low,high,    pivot,    i,    j) {
+    pivot = arr[low]
+    i = low
+
+    for (j=low+1; j<=high; j++) {
+	if (compare(arr[j],pivot)) {
+	    i++
+	    tmp = arr[i]
+	    arr[i] = arr[j]
+	    arr[j] = tmp
+	}
+    }
+    tmp = arr[low]
+    arr[low] = arr[i]
+    arr[i] = tmp
+    return i
 }
 
-END {print ans}
+function print_arr() {
+    for (i=1; i<=length(arr); i++) {
+	print arr[i]
+    }
+}
+ 
+END {
+    p++
+    arr[p] = "[[2]]"
+    p++
+    arr[p] = "[[6]]"
+
+    # Sort arr[] using quick sort
+    qsort(1,length(arr))
+#    print_arr()
+
+    for (i in arr) {
+	if (arr[i]=="[[2]]") {
+	    i1 = i
+	} else if (arr[i]=="[[6]]") {
+	    i2 = i
+	}
+    }
+
+    print i1*i2
+}
+	    
+   
