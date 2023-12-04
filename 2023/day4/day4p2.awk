@@ -25,10 +25,9 @@ BEGIN {
 	    count++
 	
     }
-    printf "%d: %d\n", cards[NR], count
 
     for (i=1; i<= count; i++) {
-	cards[NR+i] = ( cards[NR+i] ? cards[NR]+i : 1 ) + cards[NR] 
+	cards[NR+i] = ( cards[NR+i] ? cards[NR+i] : 1 ) + cards[NR] 
     }
     
     tot += cards[NR]
