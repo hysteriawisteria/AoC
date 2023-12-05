@@ -12,7 +12,7 @@ function remap(array, dest, src, len, prevarray,      idx,     val) {n
 	if (val >= src && val < src+len) {
 	    array[idx] = val - (src - dest)
 	} else {
-	    array[idx] = val
+	    array[idx] = array[idx] ? array[idx] : val
 	}
     }
 }
@@ -72,7 +72,7 @@ function print_seeds() {
 }
 
 END {
-    print_seeds()
+    # print_seeds()
     for (idx in location) {
 	if (small == "" || small > location[idx])
 	    small = location[idx]
