@@ -19,14 +19,13 @@ function remap(array, dest, src, len, prevarray,      idx,     range) {n
 		
 		# additional range created by truncation
 		array[src+len] = range - (src+len-idx)
-
-		delete array[idx]
 	    } else {
 		# if the group of seeds doesn't overlap the end of the remap range we can just shift the entire range
 		array[idx-(src-dest)] = range
-		delete array[idx]
+
 	    }
-	} else if (idx+range >=src && idx+range < src+len) {
+	    delete array[idx]
+	} else if (idx+range > src && idx+range < src+len) {
 	    # beginning of group is not within the remap range, but check full group range
 
 		# new range not shifted but truncated
@@ -34,7 +33,6 @@ function remap(array, dest, src, len, prevarray,      idx,     range) {n
 
 		# additional range created by truncation
 		array[dest] = range - (src-idx)
-		delete array[idx]
 	} else if (idx < src && idx+range >= src+len) {
 	    # seed group range completely overlaps remap range
 
@@ -46,7 +44,6 @@ function remap(array, dest, src, len, prevarray,      idx,     range) {n
 
 	    #additional range not shifted but truncated
 	    array[src+len] = idx+range-(src+len)
-	    delete array[idx]
 	} else {
 	    array[idx] = array[idx] ? array[idx] : range
 	}
