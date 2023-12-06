@@ -5,18 +5,19 @@ BEGIN {tot=1}
 
 /Time/ {
     for (i=2; i<=NF; i++) {
-	time[i] = $i
+	time = time $i
     }
 }
 
 /Distance/ {
     for (i=2; i<=NF; i++) {
-	tot *= (int((time[i] + sqrt(time[i]^2-4*($i+.1)))/2) - int((time[i] - sqrt(time[i]^2-4*($i+.1)))/2))
+	dist = dist $i
+
     }
 }
 
 END {
-    print tot
+    print int((time + sqrt(time^2-4*(dist+.1)))/2) - int((time - sqrt(time^2-4*(dist+.1)))/2)
 }
 
     
