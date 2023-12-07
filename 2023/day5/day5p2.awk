@@ -7,58 +7,36 @@ BEGIN {
     FS="[ -]"
 }
 
-function flush(array, prevarray,    idx) {
-    for (idx in prevarray) {
-	array[idx] = prevarray[idx]
+function flush(a1, a2,    idx) {
+    for (idx in a2) {
+	a1[idx] = a2[idx]
     }
+    delete a2
 }
 
-function remap(array, dest, src, len, prevarray,      idx,     range) {n
+function remap(array, dest, src, len, prevarray,      idx,     range) {
     for (idx in prevarray) {
 
 	range = prevarray[idx]
 	idx += 0
-	range += 0
-	# check if beginning of a group of seeds is within a range to be remapped
-	if (idx >= src && idx < src+len) {
-	    
-	    # check if group of seeds overlaps end of remap range
-	    if (idx+range > src+len) {
-		# new range shifted and truncated
-		array[idx-(src-dest)] = src+len-idx
-		
-		# additional range created by truncation - evaluate later
-		prevarray[src+len] = range - (src+len-idx)
-	    } else {
-		# if the group of seeds doesn't overlap the end of the remap range we can just shift the entire range
-		array[idx-(src-dest)] = range
 
-	    }
-	    	delete prevarray[idx]
-		delete array[idx]
-	} else if (idx+range > src && idx+range < src+len) {
-	    # beginning of group is not within the remap range, but check full group range
-
-		# new range not shifted but truncated
-		array[idx] = src-idx
-
-		# additional shifted range created by truncation
-		array[dest] = range - (src-idx)
-	    	delete prevarray[idx]
-	} else if (idx < src && idx+range >= src+len) {
-	    # seed group range completely overlaps remap range
-
-	    # new range not shifted but truncated
-	    array[idx] = src-idx
-
-	    # additional range shifted and truncated
+	if (idx < src && idx+range > src+len) {
+	    prevarray[idx] = src-idx
 	    array[dest] = len
-
-	    #additional range not shifted but truncated - evaluate later
-	    prevarray[src+len] = idx+range-(src+len)
+	    prevarray[src+len] = range-len-(src-idx)
+	    
+	} else if (idx >= src && idx < src+len && idx+range > src+len) {
+	    array[idx-(src-dest)] = src+len-idx
+	    prevarray[src+len] = range-(src+len-idx)
 	    delete prevarray[idx]
-	} else {
-	    array[idx] = array[idx] ? array[idx] : range
+	    
+	} else if (idx < src && idx+range > src && idx+range <= src+len) {
+	    prevarray[idx] = src-idx
+	    array[dest] = range-(src-idx)
+	    
+	} else if (idx >= src && idx+range <= src+len) {
+	    array[idx-(src-dest)] = range
+	    delete prevarray[idx]
 	}
     }
 }
@@ -79,37 +57,36 @@ function remap(array, dest, src, len, prevarray,      idx,     range) {n
     switch (arr) {
     case "soil":
 	remap(soil, $1, $2, $3, seed)
-	flush(soil, seed)
 	break
 	
     case "fertilizer":
+	flush(soil, seed)
 	remap(fertilizer, $1, $2, $3, soil)
-	flush(fertilizer, soil)
 	break
 
     case "water":
+	flush(fertilizer, soil)
 	remap(water, $1, $2, $3, fertilizer)
-	flush(water, fertilizer)
 	break
 
     case "light":
+	flush(water, fertilizer)
 	remap(light, $1, $2, $3, water)
-	flush(light, water)
 	break
 
     case "temperature":
+	flush(light, water)
 	remap(temperature, $1, $2, $3, light)
-	flush(temperature, light)
 	break
 
     case "humidity":
+	flush(temperature, light)
 	remap(humidity, $1, $2, $3, temperature)
-	flush(humidity, temperature)
 	break
 
     case "location":
+	flush(humidity, temperature)
 	remap(location, $1, $2, $3, humidity)
-	flush(location, humidity)
 	break
 
     default:
@@ -120,6 +97,7 @@ function remap(array, dest, src, len, prevarray,      idx,     range) {n
 }
 
 END {
+    flush(location, humidity)
     
     for (idx in location) {
 	if (small == "" || small > idx)
