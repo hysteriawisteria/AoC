@@ -5,11 +5,11 @@ function iter(arr,i,     idx,     newarr,     ret,     node) {
     ret = 0
     for (idx in arr) {
 	split(map[idx],temp,",")
-        node = temp[substr(direction,i,1)]
+        node = temp[substr(directions,i,1)]
         ret = substr(node,3,1) != "Z" ? 1 : ret
         newarr[node] = 1
+	delete arr[idx]
     }
-    delete arr
 
     for (idx in newarr) {
 	arr[idx] = 1
@@ -40,7 +40,7 @@ END {
     }
         
     i = 1
-    step = 0
+    step = 1
 
     while (iter(nodes,i)) {
         i = i>=length(directions) ? 1 : i+1
