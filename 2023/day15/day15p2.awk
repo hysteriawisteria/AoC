@@ -31,15 +31,15 @@ function makehash(str,     i,     hash) {
 
 	if (input[i] ~ /[a-z]+=[1-9]/) {
 	    if (boxes[h] ~ label) {
-		# replace just the number for the label
+		#          box up to the lens number                                lens number                         box after the lens number
 		boxes[h] = substr(boxes[h],1,index(boxes[h],label)+length(label)-1) substr(input[i],length(input[i]),1) substr(boxes[h],index(boxes[h],label)+length(label)+1)
 	    } else {
 		boxes[h] = boxes[h] "," label substr(input[i],length(input[i]),1)
 	    }
 	    
 	} else if (input[i] ~ /[a-z]+-/) {
-	    # completely remove label + number
 	    if (boxes[h] ~ label) {
+		#          box up to just before the previous comma   box after the lens number
 		boxes[h] = substr(boxes[h],1,index(boxes[h],label)-2) substr(boxes[h],index(boxes[h],label)+length(label)+1)
 	    }
 	    
