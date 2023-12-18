@@ -100,6 +100,7 @@ END {
     flush(location, humidity)
     
     for (idx in location) {
+	print idx,location[idx]
 	if (small == "" || small > idx)
 	    small = idx
     }
