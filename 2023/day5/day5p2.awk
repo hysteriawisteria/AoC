@@ -98,10 +98,9 @@ function remap(array, dest, src, len, prevarray,      idx,     range) {
 
 END {
     flush(location, humidity)
-    
+
     for (idx in location) {
-	print idx,location[idx]
-	if (small == "" || small > idx)
+	if (small == "" || small+0 > idx+0)
 	    small = idx
     }
 
