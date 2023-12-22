@@ -9,7 +9,6 @@ NR == 1 {
     directions=$1
     gsub(/L/,"1",directions)
     gsub(/R/,"2",directions)
-    print directions
 }
 
 /=/ {
@@ -17,16 +16,14 @@ NR == 1 {
 }
 
 END {
-    step = 0
+    step = 1
     node = "AAA"
-    i = 1
 
     while (node != "ZZZ") {
 	split(map[node],temp,",")
-        node=temp[substr(directions,i,1)]
-        i = i>=length(directions) ? 1 : i+1
+        node=temp[substr(directions,(step-1)%length(directions)+1,1)]
 	step++
     }
 
-    print step
+    print step-1
 }
