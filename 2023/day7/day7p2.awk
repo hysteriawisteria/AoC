@@ -2,7 +2,7 @@
 ## Author: Chris Menard
 
 BEGIN {
-    vals = "23456789TJQKA"
+    vals = "J23456789TQKA"
 }
 
 # Return type of hand
@@ -15,31 +15,39 @@ BEGIN {
 #     6 - 4 of a kind
 #     7 - 5 of a kind
 function categorize(hand,     i,     idx,     cards) {
+    cards["J"] = 0
     for (i=1; i<=length(hand); i++) {
+	
 	cards[substr(hand,i,1)]++
     }
 
     # Check for 5 of a kind, one pair, and high card
-    if (length(cards) == 1) {
+    if (length(cards) == 1 || length(cards) == 2) {
 	return 7
-    } else if (length(cards) == 4) {
-	return 2
     } else if (length(cards) == 5) {
+	return 2
+    } else if (length(cards) == 6) {
 	return 1
     }
     # Check for full house versus 4 of a kind
-    else if (length(cards) == 2) {
+    else if (length(cards) == 3) {
+	if (cards["J"] == 4) {
+	    return 6
+	}
 	for (idx in cards) {
-	    if (cards[idx] == 4) {
+	    if (cards[idx]+cards["J"]== 4) {
 		return 6
 	    }
 	}
 	return 5
     }
     # Check for two pair versus 3 of a kind
-    else if (length(cards) == 3) {
+    else if (length(cards) == 4) {
+	if (cards["J"] == 3) {
+	    return 4
+	}
 	for (idx in cards) {
-	    if (cards[idx] == 3) {
+	    if (cards[idx]+cards["J"] == 3) {
 		return 4
 	    }
 	}
