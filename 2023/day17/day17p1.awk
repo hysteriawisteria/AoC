@@ -103,8 +103,6 @@ END {
     paths[""] = 0
     next_pos = find_path(start,map,width,height)
 
-    lim = 50
-    
     while (loc(next_pos) != end) {
 	next_pos = find_path(next_pos,map,width,height)
     }
