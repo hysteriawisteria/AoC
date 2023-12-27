@@ -51,7 +51,7 @@ function find_path(node,map,width,height,     pos,    n,     e,     s,     w,   
 function getMin(open,     val,      min,     minPos,     idx) {
    min = ""
   for (p in open) {
-      val = open[p]
+      val = paths[open[p]]
       if (min == "" || val < min) {
 	  min = val
 	  minPos = p
@@ -67,18 +67,22 @@ function visit(node,neighbor,map,dir,     val,     npath,     nnode) {
     } else {
 	npath = dir
     }
+
+    if ((open[node] dir) ~ /senw|swne|eswn|enws|nesw|news|wsen|wnes/) {
+	closed[neighbor] = ""
+    }
     
     # Avoid going 4 in a row
     if (npath ~ /nnnn|eeee|wwww|ssss/) {
 	return 1
     }
 
-    val = open[node] + substr(map,neighbor,1)
+    val = paths[open[node]] + substr(map,neighbor,1)
     nnode = neighbor "," substr(npath,length(npath)-2)
 
-    if (open[nnode] == "" || val < open[nnode]) {
-        open[nnode] = val
-#	add(queue,nnode)
+    if (open[nnode] == "" || val < paths[open[nnode]]) {
+        open[nnode] = open[node] dir
+	paths[open[node] dir] = val
     }
     
     return 0
@@ -95,13 +99,15 @@ END {
     start = "1,"
     end = length(map)
 
-    open[start] = 0
+    open[start] = ""
+    paths[""] = 0
     next_pos = find_path(start,map,width,height)
 
+    lim = 50
+    
     while (loc(next_pos) != end) {
 	next_pos = find_path(next_pos,map,width,height)
-	#print next_pos,open[next_pos]
     }
 
-    print open[next_pos]
+    print paths[open[next_pos]]
 }
