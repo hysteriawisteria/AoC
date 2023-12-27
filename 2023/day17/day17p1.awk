@@ -61,10 +61,15 @@ function getMin(open,     val,      min,     minPos,     idx) {
 }
 
 function visit(node,neighbor,map,dir,     val,     npath,     nnode) {
-    npath = substr(node,index(node,",")+1) dir
-
-    # Avoid going 4 in a row. Also avoid processing loops to save time
-    if (npath ~ /nnnn|eeee|wwww|ssss|eswn|enws|senw|swne|wnes|wsen|nwse|nesw/) {
+    path = substr(node,index(node,",")+1)
+    if (path == "" || substr(path,1,1) == dir) {
+	npath = path dir
+    } else {
+	npath = dir
+    }
+    
+    # Avoid going 4 in a row
+    if (npath ~ /nnnn|eeee|wwww|ssss/) {
 	return 1
     }
 
@@ -95,7 +100,7 @@ END {
 
     while (loc(next_pos) != end) {
 	next_pos = find_path(next_pos,map,width,height)
-	print next_pos,open[next_pos]
+	#print next_pos,open[next_pos]
     }
 
     print open[next_pos]
