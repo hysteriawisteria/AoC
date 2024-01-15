@@ -50,6 +50,3 @@ function process(     i,     rule,    op,    val,     cat) {
 END {
     print tot
 }
-   
-
-
