@@ -133,6 +133,3 @@ END {
 
     print low*high
 }
-
-
-	
