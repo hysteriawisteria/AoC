@@ -77,7 +77,7 @@ function button(     idx,     max,     queue,     connections,     i,     entry,
 	    max++
 	    queue[max] = connections[i] " " pulse " " entry[1]
 
-	    printf "%s -%s-> %s\n",entry[1],pulse,connections[i]
+#	    printf "%s -%s-> %s\n",entry[1],pulse,connections[i]
 	}
 
 	if (pulse == "low") {
@@ -127,8 +127,6 @@ END {
     high = 0
     for (i=1; i<=1000; i++) {
 	button()
-	if (i%100 == 0)
-	    print i
     }
 
     print low*high
