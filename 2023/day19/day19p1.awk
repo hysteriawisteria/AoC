@@ -33,7 +33,9 @@ function process(     i,     rule,    op,    val,     cat) {
 }
 
 /^[a-z]/ {
-    workflows[substr($1,1,index($1,"{")-1)] = substr($1,index($1,"{")+1,index($1,"}")-index($1,"{")-1)
+    beg = index($1,"{")
+    end = index($1,"}")
+    workflows[substr($1,1,beg-1)] = substr($1,beg+1,end-beg-1)
 }
 
 /^\{/ {
